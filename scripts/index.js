@@ -27,6 +27,73 @@ const baseDeDatos = {
     },
   ],
 };
+const boton= document.querySelector(".login-btn")
+boton.addEventListener('click', (event) => {
+  console.log("Has hecho click en el boton inicio de sesión");
+  let x = 0
+  const mensaje = setInterval(() => {
+      ++x
+      document.querySelector("#loader").style.display="block";
+      document.querySelector("#error-container").style.display="none";
+      if ( x === 3){
+          clearInterval(mensaje)
+          // console.log(`Inicio de sesión!`);
+          document.querySelector("#loader").style.display="none";
+
+          function validarEmail(email) {
+              const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+              return regex.test(email);
+            }
+
+            let emailValido
+            let email = document.getElementById('email-input').value;
+            for (let index = 0; index < baseDeDatos.usuarios.length; index++) {
+              if (baseDeDatos.usuarios[index].email === email) {
+                emailValido = baseDeDatos.usuarios[index].email
+              }
+            }
+
+            if (validarEmail(emailValido)) {
+              console.log("El email es válido.");
+            } else {
+              console.log("El email no es válido.");
+          }
+          
+          validarEmail();
+          // ----------se utiliza para validar un email-------------------
+          function validarPassword(password) {
+            const regexp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+            return regexp.test(password);
+          }
+          // ---------------------------------------------------------------
+          let passwordValido
+          let password = document.getElementById('password-input').value;
+          for (let index = 0; index < baseDeDatos.usuarios.length; index++) {
+            if (baseDeDatos.usuarios[index].password === password) {
+              passwordValido = baseDeDatos.usuarios[index].password
+            }
+          }
+          
+          if (validarPassword(passwordValido)) {
+            console.log("La contraseña es válida.");
+          } else {
+            console.log("La contraseña no es válida.");
+          }
+          validarPassword();
+          if (emailValido && passwordValido){
+            const h1 = document.querySelector('h1')
+            h1.innerText= " Bienvenido al sitio 😀 "
+            document.querySelector("form").style.display="none";
+
+          }else{
+            document.querySelector("#error-container").style.display="block";
+            let small = document.querySelector("small");
+            small.innerText= "Alguno de los datos ingresados son incorrectos"
+          }
+
+        }
+      }, 1000);
+    })
 
 // ACTIVIDAD
 

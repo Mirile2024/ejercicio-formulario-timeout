@@ -90,5 +90,11 @@ small {
 }
 
 .hidden {
-  display: none !important;
+  display: none ;
+}
+/* ------------Agregamos para verlo en el celular--------- */
+@media (max-width: 400px){
+  form{
+    width: 90%;
+  }
 }
